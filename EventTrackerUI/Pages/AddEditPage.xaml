@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EventTrackerUI.Pages.AddEditPage"
+             Title="AddEditPage">
+    <Grid 
+        Padding="20"
+        RowSpacing="20"
+        RowDefinitions="Auto, *, Auto">
+        <Entry
+            x:Name="eTitle"
+            Placeholder="Enter Event title"/>
+        <Editor
+            x:Name="eText"
+            Grid.Row="1"
+            Placeholder="Enter Event description"/>
+        <HorizontalStackLayout
+            Grid.Row="2"
+            Spacing="10"
+            HorizontalOptions="End">
+            <Button 
+                x:Name="btnSave"
+                Text="Save"
+                Clicked="SaveButton_Clicked"/>
+            <Button 
+                x:Name="btnAdd"
+                Text="Add"
+                Clicked="AddButton_Clicked"/>
+            <Button 
+                x:Name="btnCancel"
+                Text="Cancel"
+                Clicked="CancelButton_Clicked"/>
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>
