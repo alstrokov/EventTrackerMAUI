@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EventTrackerUI.Pages.AddEditPage"
              Title="AddEditPage">
-    <Grid 
+    <Grid
         Padding="20"
         RowSpacing="20"
         RowDefinitions="Auto, *, Auto">
@@ -18,15 +18,15 @@
             Grid.Row="2"
             Spacing="10"
             HorizontalOptions="End">
-            <Button 
+            <Button
                 x:Name="btnSave"
                 Text="Save"
                 Clicked="SaveButton_Clicked"/>
-            <Button 
+            <Button
                 x:Name="btnAdd"
                 Text="Add"
                 Clicked="AddButton_Clicked"/>
-            <Button 
+            <Button
                 x:Name="btnCancel"
                 Text="Cancel"
                 Clicked="CancelButton_Clicked"/>
