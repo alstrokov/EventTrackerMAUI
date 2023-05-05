@@ -45,20 +45,6 @@ public partial class MainPage : ContentPage
         }
     }
 
-    private void StoreButton_Clicked(object sender, EventArgs e)
-    {
-        Debug.WriteLine($"[MainPage] (Store)");
-        Persistence.Store(_events.ToList());
-    }
-
-    //private void LoadButton_Clicked(object sender, EventArgs e)
-    //{
-    //    Debug.WriteLine($"[MainPage] (Load)");
-    //    lvEvents.BindingContext = null;
-    //    _events = new ObservableCollection<EventRecord>(Persistence.Load());
-    //    lvEvents.BindingContext = _events;
-    //}
-
     private void AddNewEventRecord(EventRecord record)
     {
         _events.Add(record);

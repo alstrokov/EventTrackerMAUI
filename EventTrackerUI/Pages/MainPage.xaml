@@ -50,22 +50,8 @@
             Spacing="10"
             Grid.Row="1">
             <Button
-                Text="Store"
-                Clicked="StoreButton_Clicked"/>
-            <!--<Button
-                Text="Clear"
-                IsVisible="false"
-                Clicked="ClearButton_Clicked"/>-->
-            <!--<Button
-                Text="Load"
-                IsVisible="false"
-                Clicked="LoadButton_Clicked"/>-->
-            <Button
                 Text="Add New Event"
                 Clicked="AddEventButton_Clicked"/>
         </HorizontalStackLayout>
     </Grid>
-    <!--</VerticalStackLayout>-->
-
-
 </ContentPage>
