@@ -14,12 +14,18 @@ public partial class App : Application
         var window = base.CreateWindow(activationState);
 
         window.Activated += Window_Activated;
+        window.Destroying += Window_Destroying;
 
         return window;
     }
 
+    private void Window_Destroying(object sender, EventArgs e)
+    {
+        System.Diagnostics.Debug.WriteLine("[Window] Destroying");
+    }
+
     private void Window_Activated(object sender, EventArgs e)
     {
-        System.Diagnostics.Debug.WriteLine("[Window] activated");
+        System.Diagnostics.Debug.WriteLine("[Window] Activated");
     }
 }

@@ -27,7 +27,7 @@ public partial class MainPage : ContentPage
 
     private async void AddEventButton_Clicked(object sender, EventArgs e)
     {
-        Debug.WriteLine("[MP] add event button clicked");
+        Debug.WriteLine("[MainPage] add event button clicked");
         await Navigation.PushAsync(new AddEditPage(AddNewEventRecord));
     }
 
@@ -35,34 +35,29 @@ public partial class MainPage : ContentPage
     {
         if (e.SelectedItem is EventRecord selectedEvent)
         {
-            Debug.WriteLine($"[MP] (Event selected) `{selectedEvent}`");
+            Debug.WriteLine($"[MainPage] (Event selected) `{selectedEvent}`");
             lvEvents.SelectedItem = null;
             await Navigation.PushAsync(new AddEditPage(selectedEvent));
         }
         else
         {
-            Debug.WriteLine($"[MP] (Event selected) cannot convert");
+            Debug.WriteLine($"[MainPage] (Event selected) cannot convert");
         }
     }
 
     private void StoreButton_Clicked(object sender, EventArgs e)
     {
-        Debug.WriteLine($"[MP] (Store)");
+        Debug.WriteLine($"[MainPage] (Store)");
         Persistence.Store(_events.ToList());
     }
 
-    private void LoadButton_Clicked(object sender, EventArgs e)
-    {
-        Debug.WriteLine($"[MP] (Load)");
-        lvEvents.BindingContext = null;
-        _events = new ObservableCollection<EventRecord>(Persistence.Load());
-        lvEvents.BindingContext = _events;
-    }
-
-    private void ClearButton_Clicked(object sender, EventArgs e)
-    {
-        _events.Clear();
-    }
+    //private void LoadButton_Clicked(object sender, EventArgs e)
+    //{
+    //    Debug.WriteLine($"[MainPage] (Load)");
+    //    lvEvents.BindingContext = null;
+    //    _events = new ObservableCollection<EventRecord>(Persistence.Load());
+    //    lvEvents.BindingContext = _events;
+    //}
 
     private void AddNewEventRecord(EventRecord record)
     {

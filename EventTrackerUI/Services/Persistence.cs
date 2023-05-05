@@ -5,7 +5,7 @@ namespace EventTrackerUI.Services
 {
     internal static class Persistence
     {
-        static string _filename = Path.Combine(
+        static readonly string _filename = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "EventTracker.txt");
 
         internal static void Store(List<EventRecord> events)
