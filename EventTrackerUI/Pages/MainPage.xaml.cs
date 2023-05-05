@@ -18,6 +18,13 @@ public partial class MainPage : ContentPage
         lvEvents.BindingContext = _events;
     }
 
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        Persistence.Store(_events.ToList());
+        Debug.WriteLine("[MainPage] OnDisappearing, store data");
+    }
+
     private async void AddEventButton_Clicked(object sender, EventArgs e)
     {
         Debug.WriteLine("[MP] add event button clicked");
