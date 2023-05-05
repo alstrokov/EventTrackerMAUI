@@ -9,7 +9,10 @@ namespace EventTrackerUI.Models
 
         public EventRecord(string DataToParse)
         {
-            FromStore(DataToParse);
+            if (!string.IsNullOrEmpty(DataToParse))
+            {
+                FromStore(DataToParse);
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
