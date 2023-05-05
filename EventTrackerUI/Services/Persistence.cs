@@ -1,4 +1,4 @@
-﻿using System.Text;
+﻿using System.Text.Json;
 using EventTrackerUI.Models;
 
 namespace EventTrackerUI.Services
@@ -12,14 +12,11 @@ namespace EventTrackerUI.Services
         {
             System.Diagnostics.Debug.WriteLine($"[Persistence>Store]\tSave to [{_filename}]");
 
-            StringBuilder sb = new();
+            JsonSerializerOptions jsonSerializerOptions = new() { WriteIndented = true };
 
-            foreach (var e in events)
-            {
-                sb.AppendLine(e.ToStore());
-            }
+            string output = JsonSerializer.Serialize(events, jsonSerializerOptions);
 
-            File.WriteAllText(_filename, sb.ToString());
+            File.WriteAllText(_filename, output);
         }
 
         internal static List<EventRecord> Load()
@@ -33,11 +30,12 @@ namespace EventTrackerUI.Services
                 return records;
             }
 
-            var data = File.ReadAllLines(_filename);
+            string data = File.ReadAllText(_filename);
 
-            foreach (var line in data)
+            records = JsonSerializer.Deserialize<List<EventRecord>>(data);
+            if (records == null)
             {
-                records.Add(new EventRecord(line));
+                return records;
             }
 
             System.Diagnostics.Debug.WriteLine($"[Persistence>Load]\tTotal records {records.Count}");
