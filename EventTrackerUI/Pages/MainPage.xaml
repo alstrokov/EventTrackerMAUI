@@ -21,7 +21,6 @@
                             <ViewCell.View Padding="0">
                                 <Border Margin="5">
                                 <Grid
-
                                     Padding="10"
                                     ColumnSpacing="15"
                                     RowSpacing="25">

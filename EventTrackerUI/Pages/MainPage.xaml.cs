@@ -22,12 +22,12 @@ public partial class MainPage : ContentPage
     {
         base.OnDisappearing();
         Persistence.Store(_events.ToList());
-        Debug.WriteLine("[MainPage] OnDisappearing, store data");
+        Debug.WriteLine(">>>[MainPage] OnDisappearing, store data");
     }
 
     private async void AddEventButton_Clicked(object sender, EventArgs e)
     {
-        Debug.WriteLine("[MainPage] add event button clicked");
+        Debug.WriteLine(">>>[MainPage] add event button clicked");
         await Navigation.PushAsync(new AddEditPage(AddNewEventRecord));
     }
 
@@ -35,13 +35,13 @@ public partial class MainPage : ContentPage
     {
         if (e.SelectedItem is EventRecord selectedEvent)
         {
-            Debug.WriteLine($"[MainPage] (Event selected) `{selectedEvent}`");
+            Debug.WriteLine($">>>[MainPage] (Event selected) `{selectedEvent}`");
             lvEvents.SelectedItem = null;
             await Navigation.PushAsync(new AddEditPage(selectedEvent));
         }
         else
         {
-            Debug.WriteLine($"[MainPage] (Event selected) cannot convert");
+            Debug.WriteLine($">>>[MainPage] (Event selected) cannot convert");
         }
     }
 

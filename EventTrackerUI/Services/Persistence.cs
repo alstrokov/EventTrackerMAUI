@@ -10,7 +10,7 @@ namespace EventTrackerUI.Services
 
         internal static void Store(List<EventRecord> events)
         {
-            System.Diagnostics.Debug.WriteLine($"[Persistence>Store]\tSave to [{_filename}]");
+            System.Diagnostics.Debug.WriteLine($">>>[Persistence>Store]\tSave to [{_filename}]");
 
             JsonSerializerOptions jsonSerializerOptions = new() { WriteIndented = true };
 
@@ -21,7 +21,7 @@ namespace EventTrackerUI.Services
 
         internal static List<EventRecord> Load()
         {
-            System.Diagnostics.Debug.WriteLine($"[Persistence>Load]\tLoad from [{_filename}]");
+            System.Diagnostics.Debug.WriteLine($">>>[Persistence>Load]\tLoad from [{_filename}]");
 
             List<EventRecord> records = new();
 
@@ -34,7 +34,7 @@ namespace EventTrackerUI.Services
 
             try
             {
-            records = JsonSerializer.Deserialize<List<EventRecord>>(data);
+                records = JsonSerializer.Deserialize<List<EventRecord>>(data);
             }
             catch
             {
@@ -46,7 +46,7 @@ namespace EventTrackerUI.Services
                 return records;
             }
 
-            System.Diagnostics.Debug.WriteLine($"[Persistence>Load]\tTotal records {records.Count}");
+            System.Diagnostics.Debug.WriteLine($">>>[Persistence>Load]\tTotal records {records.Count}");
             return records.OrderByDescending(r => r.Date).ToList();
         }
     }
