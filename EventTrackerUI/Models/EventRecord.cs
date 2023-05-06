@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
 
 namespace EventTrackerUI.Models
 {
@@ -32,6 +33,7 @@ namespace EventTrackerUI.Models
             }
         }
 
+        [JsonIgnore]
         public string TimeTo => $"{GetTimeTo()}";
 
         private string GetTimeTo()

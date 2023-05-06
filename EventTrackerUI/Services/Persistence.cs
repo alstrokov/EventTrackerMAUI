@@ -32,7 +32,15 @@ namespace EventTrackerUI.Services
 
             string data = File.ReadAllText(_filename);
 
+            try
+            {
             records = JsonSerializer.Deserialize<List<EventRecord>>(data);
+            }
+            catch
+            {
+                return records;
+            }
+
             if (records == null)
             {
                 return records;
