@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
+using EventTrackerUI.Helpers;
 using EventTrackerUI.Models;
 using EventTrackerUI.Pages;
 using EventTrackerUI.Services;
@@ -37,7 +38,7 @@ public partial class MainPage : ContentPage
         {
             Debug.WriteLine($">>>[MainPage] (Event selected) `{selectedEvent}`");
             lvEvents.SelectedItem = null;
-            await Navigation.PushAsync(new AddEditPage(selectedEvent));
+            await Navigation.PushAsync(new AddEditPage(selectedEvent, DeleteEventRecord));
         }
         else
         {
@@ -47,7 +48,22 @@ public partial class MainPage : ContentPage
 
     private void AddNewEventRecord(EventRecord record)
     {
-        _events.Add(record);
+        var list = _events.ToList();
+
+        list.Add(record);
+        list = list.Reorder();
+
+        _events = new ObservableCollection<EventRecord>(list);
+        lvEvents.BindingContext = _events;
+
+        Persistence.Store(_events.ToList());
+    }
+
+    private void DeleteEventRecord(EventRecord record)
+    {
+        _events.Remove(record);
+
+        Persistence.Store(_events.ToList());
     }
 }
 

@@ -9,15 +9,21 @@
         RowDefinitions="Auto, *, Auto">
         <Entry
             x:Name="eTitle"
+            TextChanged="Title_TextChanged"
             Placeholder="Enter Event title"/>
         <Editor
             x:Name="eText"
             Grid.Row="1"
+            TextChanged="Text_TextChanged"
             Placeholder="Enter Event description"/>
         <HorizontalStackLayout
             Grid.Row="2"
             Spacing="10"
             HorizontalOptions="End">
+            <Button
+                x:Name="btnDelete"
+                Text="Delete"
+                Clicked="DeleteButton_Clicked"/>
             <Button
                 x:Name="btnSave"
                 Text="Save"
@@ -29,6 +35,7 @@
             <Button
                 x:Name="btnCancel"
                 Text="Cancel"
+                IsVisible="false"
                 Clicked="CancelButton_Clicked"/>
         </HorizontalStackLayout>
     </Grid>
