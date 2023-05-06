@@ -50,8 +50,8 @@ public partial class MainPage : ContentPage
     {
         var list = _events.ToList();
 
-        list.Add(record);
         list = list.Reorder();
+        list.Insert(0, record);
 
         _events = new ObservableCollection<EventRecord>(list);
         lvEvents.BindingContext = _events;
