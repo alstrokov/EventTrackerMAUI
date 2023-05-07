@@ -20,23 +20,17 @@
                         <ViewCell >
                             <ViewCell.View Padding="0">
                                 <Border Margin="5">
-                                <Grid
-                                    Padding="10"
-                                    ColumnSpacing="15"
-                                    RowSpacing="25">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Label Text="{Binding Date}" VerticalOptions="Center" />
-                                        <Label Text="{Binding TimeTo}" Grid.Row="1" VerticalOptions="Center"/>
-                                        <Label Text="{Binding Title}" Grid.Column="1" FontSize="Title" VerticalOptions="Center"/>
-                                        <Label Text="{Binding Text}" Grid.Column="1" Grid.Row="1" FontSize="Body" VerticalOptions="Center"/>
-                                </Grid>
+                                    <Grid
+                                        RowDefinitions ="Auto, 35"
+                                        ColumnDefinitions="Auto, *"
+                                        Padding="10"
+                                        ColumnSpacing="15"
+                                        RowSpacing="2">
+                                        <Label Text="{Binding Date}" VerticalOptions="Center" />
+                                        <Label Text="{Binding TimeTo}" Grid.Row="1" VerticalOptions="Start"/>
+                                        <Label Text="{Binding Title}" Grid.Column="1" FontSize="Title" VerticalOptions="Start"/>
+                                        <Label Text="{Binding Text}" Grid.Column="1" Grid.Row="1" FontSize="Body" VerticalOptions="Start"/>
+                                    </Grid>
                                 </Border>
                             </ViewCell.View>
                         </ViewCell>
@@ -49,7 +43,10 @@
             Spacing="10"
             Grid.Row="1">
             <Button
-                Text="Add New Event"
+                Text="➕ Add New Event"
+                BackgroundColor="LightGreen"
+                TextColor="Black"
+                FontFamily="IconsFont"
                 Clicked="AddEventButton_Clicked"/>
         </HorizontalStackLayout>
     </Grid>

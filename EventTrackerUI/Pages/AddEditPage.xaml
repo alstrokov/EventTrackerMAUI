@@ -22,19 +22,27 @@
             HorizontalOptions="End">
             <Button
                 x:Name="btnDelete"
-                Text="Delete"
+                Text="🗑️ Delete"
+                TextColor="Black"
+                BackgroundColor="LightPink"
                 Clicked="DeleteButton_Clicked"/>
             <Button
                 x:Name="btnSave"
-                Text="Save"
+                Text="💾 Save"
+                TextColor="Black"
+                BackgroundColor="LightBlue"
                 Clicked="SaveButton_Clicked"/>
             <Button
                 x:Name="btnAdd"
-                Text="Add"
+                Text="➕ Add"
+                TextColor="Black"
+                BackgroundColor="LightGreen"
                 Clicked="AddButton_Clicked"/>
             <Button
                 x:Name="btnCancel"
-                Text="Cancel"
+                Text="❌ Cancel"
+                TextColor="Black"
+                BackgroundColor="LightGray"
                 IsVisible="false"
                 Clicked="CancelButton_Clicked"/>
         </HorizontalStackLayout>

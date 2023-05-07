@@ -66,4 +66,3 @@ public partial class MainPage : ContentPage
         Persistence.Store(_events.ToList());
     }
 }
-
