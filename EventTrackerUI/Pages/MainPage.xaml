@@ -3,13 +3,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EventTrackerUI.MainPage"
              Title="EventTracker">
-    <Grid Padding="10" RowSpacing="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="🔍 Search"
+            Clicked="ToolbarItem_Clicked"
+            Order="Primary"
+            Priority="1"/>
+    </ContentPage.ToolbarItems>
+
+    <Grid
+        Padding="10"
+        RowSpacing="10"
+        RowDefinitions="Auto, *, Auto">
+        <Grid
+            ColumnDefinitions="*, Auto">
+            <Editor
+                x:Name="EdSearch"
+                IsVisible="false"
+                Margin="5,0"                
+                VerticalTextAlignment="Center"
+                TextChanged="EdSearch_TextChanged"
+                Placeholder="Enter text to search"/>
+            <Button
+                Grid.Column="1"
+                x:Name="BtnHide"
+                IsVisible="false"
+                Text="✖️ Hide"
+                HorizontalOptions="End"
+                Clicked="HideButton_Clicked"/>
+        </Grid>
         <ScrollView
-            Grid.Row="0">
+            Grid.Row="1">
             <ListView
                 x:Name="lvEvents"
                 HasUnevenRows="True"
@@ -41,7 +65,7 @@
         <HorizontalStackLayout
             HorizontalOptions="End"
             Spacing="10"
-            Grid.Row="1">
+            Grid.Row="2">
             <Button
                 Text="➕ Add New Event"
                 BackgroundColor="LightGreen"

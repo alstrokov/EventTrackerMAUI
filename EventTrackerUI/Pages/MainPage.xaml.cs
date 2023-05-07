@@ -9,6 +9,8 @@ namespace EventTrackerUI;
 
 public partial class MainPage : ContentPage
 {
+    private const string AppName = "EventTracker";
+    private ObservableCollection<EventRecord> _eventsFiltered { get; set; }
     private ObservableCollection<EventRecord> _events { get; set; }
 
     public MainPage()
@@ -17,7 +19,9 @@ public partial class MainPage : ContentPage
 
         _events = new ObservableCollection<EventRecord>(Persistence.Load());
         lvEvents.BindingContext = _events;
+        UpdateTitle();
     }
+
 
     protected override void OnDisappearing()
     {
@@ -48,6 +52,8 @@ public partial class MainPage : ContentPage
 
     private void AddNewEventRecord(EventRecord record)
     {
+        HideSearch();
+
         var list = _events.ToList();
 
         list = list.Reorder();
@@ -57,6 +63,7 @@ public partial class MainPage : ContentPage
         lvEvents.BindingContext = _events;
 
         Persistence.Store(_events.ToList());
+        UpdateTitle();
     }
 
     private void DeleteEventRecord(EventRecord record)
@@ -64,5 +71,39 @@ public partial class MainPage : ContentPage
         _events.Remove(record);
 
         Persistence.Store(_events.ToList());
+        UpdateTitle();
+    }
+
+    private void ToolbarItem_Clicked(object sender, EventArgs e)
+    {
+        EdSearch.IsVisible = !EdSearch.IsVisible;
+        BtnHide.IsVisible = !BtnHide.IsVisible;
+    }
+
+    private void EdSearch_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        _eventsFiltered = new ObservableCollection<EventRecord>(_events
+            .Where(ev => ev.Text.Contains(e.NewTextValue, StringComparison.InvariantCultureIgnoreCase)).ToList());
+        lvEvents.BindingContext = _eventsFiltered;
+
+        UpdateTitle();
+    }
+
+    private void HideButton_Clicked(object sender, EventArgs e)
+    {
+        HideSearch();
+    }
+
+    private void HideSearch()
+    {
+        EdSearch.Text = "";
+        EdSearch.IsVisible = false;
+        BtnHide.IsVisible = false;
+        _eventsFiltered = null;
+    }
+
+    private void UpdateTitle()
+    {
+        Title = $"{AppName} {_eventsFiltered?.Count ?? _events.Count}/{_events.Count}";
     }
 }
