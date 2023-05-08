@@ -18,8 +18,9 @@ public partial class MainPage : ContentPage
         InitializeComponent();
 
         _events = new ObservableCollection<EventRecord>(Persistence.Load());
+
         lvEvents.BindingContext = _events;
-        UpdateTitle();
+        UpdateAppTitle();
     }
 
 
@@ -63,7 +64,7 @@ public partial class MainPage : ContentPage
         lvEvents.BindingContext = _events;
 
         Persistence.Store(_events.ToList());
-        UpdateTitle();
+        UpdateAppTitle();
     }
 
     private void DeleteEventRecord(EventRecord record)
@@ -71,7 +72,7 @@ public partial class MainPage : ContentPage
         _events.Remove(record);
 
         Persistence.Store(_events.ToList());
-        UpdateTitle();
+        UpdateAppTitle();
     }
 
     private void ToolbarItem_Clicked(object sender, EventArgs e)
@@ -82,11 +83,67 @@ public partial class MainPage : ContentPage
 
     private void EdSearch_TextChanged(object sender, TextChangedEventArgs e)
     {
-        _eventsFiltered = new ObservableCollection<EventRecord>(_events
-            .Where(ev => ev.Text.Contains(e.NewTextValue, StringComparison.InvariantCultureIgnoreCase)).ToList());
+        string searchFullText = e.NewTextValue;
+        var tokens = searchFullText.Split(null);
+        List<string> tags = new();
+
+        foreach (var token in tokens)
+        {
+            if (token.StartsWith("#"))
+            {
+                tags.Add(token);
+            }
+        }
+        foreach (var item in tags)
+        {
+            searchFullText = searchFullText.Replace($"{item}", "");
+        }
+        searchFullText = searchFullText.Trim();
+
+
+        _eventsFiltered = new ObservableCollection<EventRecord>(
+            _events.Where(rec => SearchPredicate(rec, searchFullText, tags)).ToList());
         lvEvents.BindingContext = _eventsFiltered;
 
-        UpdateTitle();
+        UpdateAppTitle();
+    }
+
+    private static bool SearchPredicate(EventRecord record, string searchText, List<string> tags)
+    {
+        Debug.WriteLine($">>>[{searchText}] tags:{string.Join('-', tags)}");
+
+        bool tagPass = false;
+
+        if (tags.Count > 0)
+        {
+            if (record.Tags != null)
+            {
+                string[] recordTags = record.Tags.Split(null);
+
+                foreach (var tag in tags)
+                {
+                    if (recordTags.Any(t => string.Compare(t, tag.Replace("#", ""), true) == 0))
+                    {
+                        tagPass = true;
+                        break;
+                    }
+                }
+            }
+        }
+        else
+        {
+            tagPass = true;
+        }
+
+        bool pu = (record.Text.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)
+            || record.Title.Contains(searchText, StringComparison.InvariantCultureIgnoreCase))
+            && tagPass;
+
+        Debug.WriteLine($">>>result[{pu}]");
+        return
+            (record.Text.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)
+            || record.Title.Contains(searchText, StringComparison.InvariantCultureIgnoreCase))
+            && tagPass;
     }
 
     private void HideButton_Clicked(object sender, EventArgs e)
@@ -100,10 +157,13 @@ public partial class MainPage : ContentPage
         EdSearch.IsVisible = false;
         BtnHide.IsVisible = false;
         _eventsFiltered = null;
+        lvEvents.BindingContext = _events;
+        UpdateAppTitle();
     }
 
-    private void UpdateTitle()
+    private void UpdateAppTitle()
     {
         Title = $"{AppName} {_eventsFiltered?.Count ?? _events.Count}/{_events.Count}";
+        _eventsFiltered?.Recalculate();
     }
 }

@@ -20,8 +20,9 @@
             <Editor
                 x:Name="EdSearch"
                 IsVisible="false"
-                Margin="5,0"                
+                Margin="5,0"
                 VerticalTextAlignment="Center"
+                VerticalOptions="Center"
                 TextChanged="EdSearch_TextChanged"
                 Placeholder="Enter text to search"/>
             <Button
@@ -45,15 +46,17 @@
                             <ViewCell.View Padding="0">
                                 <Border Margin="5">
                                     <Grid
-                                        RowDefinitions ="Auto, 35"
+                                        RowDefinitions ="Auto, Auto, 35"
                                         ColumnDefinitions="Auto, *"
                                         Padding="10"
                                         ColumnSpacing="15"
                                         RowSpacing="2">
                                         <Label Text="{Binding Date}" VerticalOptions="Center" />
-                                        <Label Text="{Binding TimeTo}" Grid.Row="1" VerticalOptions="Start"/>
+                                        <Label Text="{Binding TimeTo}" Grid.Row="2" VerticalOptions="Start"/>
+                                        <Label Text="{Binding TimeToPrev}" Grid.Row="1" HorizontalOptions="Start" FontSize="12"/>
+                                        <Label Text="{Binding Tags}" Grid.Row="1" Grid.Column="1" HorizontalOptions="End" FontSize="12"/>
                                         <Label Text="{Binding Title}" Grid.Column="1" FontSize="Title" VerticalOptions="Start"/>
-                                        <Label Text="{Binding Text}" Grid.Column="1" Grid.Row="1" FontSize="Body" VerticalOptions="Start"/>
+                                        <Label Text="{Binding Text}" Grid.Column="1" Grid.Row="2" FontSize="Body" VerticalOptions="Start"/>
                                     </Grid>
                                 </Border>
                             </ViewCell.View>

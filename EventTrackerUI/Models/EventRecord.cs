@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
+using EventTrackerUI.Helpers;
 
 namespace EventTrackerUI.Models
 {
@@ -33,30 +34,22 @@ namespace EventTrackerUI.Models
             }
         }
 
-        [JsonIgnore]
-        public string TimeTo => $"{GetTimeTo()}";
-
-        private string GetTimeTo()
+        private string _tags;
+        public string Tags
         {
-            int days = DateOnly.FromDateTime(DateTime.Now.Date).DayNumber - _date.DayNumber;
-
-            if (days > 365)
+            get => _tags;
+            set
             {
-                return $"{days / 365}y ago";
-            }
-            else if (days > 30)
-            {
-                return $"{days / 30}m ago";
-            }
-            else if (days == 0)
-            {
-                return "Today";
-            }
-            else
-            {
-                return $"{days}d ago";
+                if(_tags != value)
+                {
+                    _tags = value;
+                    OnPropertyChanged();
+                }
             }
         }
+
+        [JsonIgnore]
+        public string TimeTo => Helper.GetTimeToDate(_date);
 
         private string _title;
 
@@ -68,6 +61,22 @@ namespace EventTrackerUI.Models
                 if (_title != value)
                 {
                     _title = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _timeToPrev;
+
+        [JsonIgnore]
+        public string TimeToPrev
+        {
+            get => _timeToPrev;
+            set
+            {
+                if (_timeToPrev != value)
+                {
+                    _timeToPrev = value;
                     OnPropertyChanged();
                 }
             }

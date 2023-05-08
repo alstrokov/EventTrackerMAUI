@@ -17,8 +17,9 @@ public partial class AddEditPage : ContentPage
         _eventRecord = eventRecord;
         _deleteEventRecord = deleteEventRecord;
         isEditMode = true;
-        eTitle.Text = eventRecord.Title;
-        eText.Text = eventRecord.Text;
+        EntryTitle.Text = eventRecord.Title;
+        EntryTags.Text = eventRecord.Tags;
+        EditorText.Text = eventRecord.Text;
 
         btnAdd.IsVisible = false;
         btnSave.IsVisible = false;
@@ -45,8 +46,9 @@ public partial class AddEditPage : ContentPage
         EventRecord eventRecord = new()
         {
             Date = DateOnly.FromDateTime(DateTime.Now),
-            Title = eTitle.Text,
-            Text = eText.Text,
+            Title = EntryTitle.Text,
+            Text = EditorText.Text,
+            Tags = EntryTags.Text
         };
 
         _addNewEventRecord(eventRecord);
@@ -59,8 +61,9 @@ public partial class AddEditPage : ContentPage
 
     private async void SaveButton_Clicked(object sender, EventArgs e)
     {
-        _eventRecord.Title = eTitle.Text;
-        _eventRecord.Text = eText.Text;
+        _eventRecord.Title = EntryTitle.Text;
+        _eventRecord.Text = EditorText.Text;
+        _eventRecord.Tags = EntryTags.Text;
 
         await Navigation.PopAsync();
     }
@@ -74,14 +77,21 @@ public partial class AddEditPage : ContentPage
 
     private void Title_TextChanged(object sender, TextChangedEventArgs e)
     {
-        if(isEditMode)
-        {
-            btnCancel.IsVisible = true;
-            btnSave.IsVisible = true;
-        }
+        SetDirtyFlag();
     }
 
     private void Text_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        SetDirtyFlag();
+    }
+
+
+    private void EntryTags_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        SetDirtyFlag();
+    }
+
+    private void SetDirtyFlag()
     {
         if (isEditMode)
         {
